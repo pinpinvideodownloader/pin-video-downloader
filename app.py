@@ -34,7 +34,7 @@ def get_pinterest_video(url):
         return None
 
 # Rota para processar o download do vídeo
-@app.route('/download', methods=['POST'])
+@app.route('/download', methods=['GET', 'POST'])
 def download_video():
     data = request.json
     pinterest_url = data.get("url")
