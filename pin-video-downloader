@@ -1,0 +1,31 @@
+from flask import Flask, request, jsonify
+import os
+import requests
+from bs4 import BeautifulSoup
+
+app = Flask(__name__)
+
+def get_pinterest_video(url):
+    headers = {"User-Agent": "Mozilla/5.0"}
+    response = requests.get(url, headers=headers)
+    soup = BeautifulSoup(response.text, "html.parser")
+    video_tag = soup.find("video")
+    return video_tag["src"] if video_tag else None
+
+@app.route('/download', methods=['GET'])
+def download():
+    pinterest_url = request.args.get('url')
+    if not pinterest_url:
+        return jsonify({"error": "URL do Pinterest é obrigatória"}), 400
+    
+    video_url = get_pinterest_video(pinterest_url)
+    
+    if video_url:
+        return jsonify({"video_url": video_url})
+    else:
+        return jsonify({"error": "Não foi possível obter o vídeo"}), 400
+
+# Iniciar o servidor corretamente no Render
+if __name__ == '__main__':
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
