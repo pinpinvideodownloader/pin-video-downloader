@@ -51,4 +51,9 @@ def download_video():
 
 # Iniciar o servidor
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    import os
+
+if __name__ == '__main__':
+    port = int(os.environ.get("PORT", 5000))  # Usar a porta do Render
+    app.run(host='0.0.0.0', port=port)  # Permitir acesso externo
+
