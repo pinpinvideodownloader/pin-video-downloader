@@ -311,10 +311,17 @@ def generate_petition(case_data: Dict[str, Any]) -> str:
 
 def build_cli() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        description="Gera minuta de petição previdenciária a partir de um YAML."
+        description="Gera minuta de petição previdenciária a partir de um YAML.",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog=(
+            "Exemplo de uso:\n"
+            "  python petition_generator.py -i cases/exemplo.yaml -o out/peticao.txt"
+        ),
     )
     parser.add_argument(
-        "arquivo",
+        "-i",
+        "--input",
+        required=True,
         type=Path,
         help="Caminho para o arquivo YAML com os dados do processo.",
     )
@@ -330,10 +337,11 @@ def build_cli() -> argparse.ArgumentParser:
 def main(args: List[str] | None = None) -> None:
     parser = build_cli()
     namespace = parser.parse_args(args)
-    case_data = load_case_data(namespace.arquivo)
+    case_data = load_case_data(namespace.input)
     texto = generate_petition(case_data)
 
     if namespace.output:
+        namespace.output.parent.mkdir(parents=True, exist_ok=True)
         namespace.output.write_text(texto, encoding="utf-8")
     else:
         print(texto)

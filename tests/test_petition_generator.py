@@ -2,7 +2,13 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from petition_generator import format_date, generate_petition, load_case_data
+from petition_generator import (
+    build_cli,
+    format_date,
+    generate_petition,
+    load_case_data,
+    main,
+)
 
 
 def test_format_date_pt_br():
@@ -103,4 +109,48 @@ observacoes: "Documentos anexos."
     assert "AÇÃO PREVIDENCIÁRIA DE CONCESSÃO DE BENEFÍCIO" in texto
     assert "Documentos anexos." in texto
     assert "OAB OAB/PR 00000" in texto
+
+
+def test_cli_help_mentions_example_usage():
+    help_text = build_cli().format_help()
+    assert "python petition_generator.py -i" in help_text
+
+
+def test_main_creates_output_directory(tmp_path: Path):
+    yaml_file = tmp_path / "input.yaml"
+    yaml_file.write_text(
+        """
+processo:
+  foro: "JEF"
+  secao: "SJ/PR"
+partes:
+  autora: "Maria"
+  cpf: "000.000.000-00"
+  endereco: "Rua X"
+advogada:
+  nome: "Fulana"
+  oab: "OAB/PR 00000"
+  email: "fulana@example.com"
+beneficio:
+  tipo: "aposentadoria por tempo"
+  der: "2024-05-20"
+  regra_transicao: "pontos"
+tempos:
+  vinculos:
+    - inicio: "1986-08-28"
+      fim: "1991-10-30"
+      categoria: "rural"
+carencia_meses: 180
+pedidos:
+  gratuidade: true
+""".strip(),
+        encoding="utf-8",
+    )
+
+    output_file = tmp_path / "subdir" / "peticao.txt"
+    main(["-i", str(yaml_file), "-o", str(output_file)])
+
+    texto = output_file.read_text(encoding="utf-8")
+    assert "Excelentíssimo(a) Senhor(a) Doutor(a) Juiz(a) Federal" in texto
+    assert output_file.exists()
 
