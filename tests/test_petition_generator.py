@@ -108,7 +108,8 @@ observacoes: "Documentos anexos."
     assert "Excelentíssimo(a) Senhor(a) Doutor(a) Juiz(a) Federal" in texto
     assert "AÇÃO PREVIDENCIÁRIA DE CONCESSÃO DE BENEFÍCIO" in texto
     assert "Documentos anexos." in texto
-    assert "OAB OAB/PR 00000" in texto
+    assert "OAB/PR 00000" in texto
+    assert "OAB OAB" not in texto
 
 
 def test_cli_help_mentions_example_usage():
