@@ -1,0 +1,36 @@
+# EXEMPLO INTEGRALMENTE FICTÍCIO. Não inserir dados de clientes neste arquivo.
+processo:
+  foro: "Vara Federal de Exemplo"
+  secao: "de Exemplo"
+partes:
+  autora: "Maria Exemplo Fictício"
+  cpf: "000.000.000-00"
+  endereco: "Rua dos Exemplos, nº 0, Cidade Fictícia"
+advogada:
+  nome: "Advogada Exemplo Fictício"
+  oab: "OAB/PR 00000"
+  email: "advogada@example.invalid"
+beneficio:
+  tipo: "aposentadoria por tempo de contribuição"
+  der: "2024-05-20"
+  regra_transicao: "a definir após análise do caso fictício"
+tempos:
+  vinculos:
+    - inicio: "1986-08-28"
+      fim: "1991-10-30"
+      categoria: "rural"
+    - inicio: "2003-01-01"
+      fim: "2023-12-31"
+      categoria: "empregada urbana"
+  especial:
+    - inicio: "1995-03-01"
+      fim: "2002-07-31"
+      agente: "agente descrito em laudo fictício"
+      ppp: true
+  conversao_especial: true
+carencia_meses: 180
+pedidos:
+  gratuidade: true
+  tutela_implantacao: true
+observacoes: "Documentos exclusivamente fictícios para demonstrar o gerador: cadastro de vínculos, declaração de atividade rural e formulário de atividade especial. Nenhuma destas informações se refere a uma pessoa ou processo real."
+data_assinatura: "2026-10-15"

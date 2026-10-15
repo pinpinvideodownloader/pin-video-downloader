@@ -1,0 +1,2 @@
+# Optional dependency for editable Word output. Plain text uses only Python.
+python-docx>=1.2,<2

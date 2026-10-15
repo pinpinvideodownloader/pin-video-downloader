@@ -1,0 +1,11 @@
+__pycache__/
+.pytest_cache/
+*.py[cod]
+.venv/
+# Private working data and generated petitions must stay out of Git.
+/cases/*
+!/cases/exemplo_ficticio.yaml
+/private-data/
+/out/
+*.docx
+.petition-*
